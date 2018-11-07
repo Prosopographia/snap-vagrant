@@ -1,11 +1,11 @@
 ---
 workspace: /root
-hostname: lamp
-ntp_timezone: America/Chicago
+hostname: snap
+ntp_timezone: Europe/London
 
 apache_enablerepo: remi
 apache_vhosts:
-  - {servername: "lamp", documentroot: "/var/www/html"}
+  - {servername: "snap", documentroot: "/var/www/html"}
 
 php_enablerepo: remi
 

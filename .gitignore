@@ -1,3 +1,4 @@
 .vagrant*
 docroot*
 *.retry
+.DS_Store

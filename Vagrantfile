@@ -19,7 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :private_network, ip: "192.168.33.33"
 
   # Minion code/data directory
-  config.vm.synced_folder "./docroot", "/home/minion", create: true,  mount_options: ["dmode=777", "fmode=666"]
+  config.vm.synced_folder "./docroot", "/var/www/html", create: true,  mount_options: ["dmode=777", "fmode=666"]
 
   # Set the name of the VM. See: http://stackoverflow.com/a/17864388/100134
   config.vm.define :snap do |snap|

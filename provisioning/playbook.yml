@@ -16,3 +16,24 @@
     - geerlingguy.apache
     - geerlingguy.php
     - geerlingguy.php-mysql
+
+  tasks:
+    - name: Install the package "git"
+      apt:
+        name: git
+    - name: Install the package "python-django"
+      apt:
+        name: python-django
+    - name: Install the package "libapache2-mod-wsgi"
+      apt:
+        name: libapache2-mod-wsgi
+    - name: Install the package "4store"
+      apt:
+        name: 4store
+    
+    - name: Checkout SNAPMinions code and data (may take a while!)
+      git:
+        repo: https://github.com/SNAPminions/snapcode.git
+        dest: /var/www/html/snapcode
+        version: master
+    

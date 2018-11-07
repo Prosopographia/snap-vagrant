@@ -27,6 +27,9 @@
     - name: Install the package "libapache2-mod-wsgi"
       apt:
         name: libapache2-mod-wsgi
+    - name: Install the package "python-pip"
+      apt:
+        name: python-pip
     - name: Install the package "4store"
       apt:
         name: 4store
@@ -36,4 +39,23 @@
         repo: https://github.com/SNAPminions/snapcode.git
         dest: /var/www/html/snapcode
         version: master
-    
+      ignore_errors: yes
+
+    - name: install the snap django python requirements
+      pip: 
+        requirements: /var/www/html/snapcode/django/requirements.txt
+        state: latest
+
+    - name: Configure 4store triplestore default database (snap)
+      lineinfile:
+        path: /etc/default/4store
+        line: 'KB="snap"'
+    - name: Configure 4store triplestore port (9000)
+      lineinfile:
+        path: /etc/default/4store
+        line: 'PORT="9000"'
+
+    - name: Setup 4store triplestore and import SNAP data
+      command: 4s-backend-setup snap
+    - name: Setup 4store triplestore and import SNAP data
+      command: 4s-backend-setup snap

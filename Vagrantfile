@@ -17,6 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.hostname = "snap"
   config.vm.network :private_network, ip: "192.168.33.33"
+  # config.vm.network :forwarded_port, guest: 9000, host: 9000
 
   # Minion code/data directory
   config.vm.synced_folder "./docroot", "/var/www/html", create: true,  mount_options: ["dmode=777", "fmode=666"]

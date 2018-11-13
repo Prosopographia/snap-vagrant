@@ -36,14 +36,14 @@
     
     - name: Checkout SNAPMinions code and data (may take a while!)
       git:
-        repo: https://github.com/SNAPminions/snapcode.git
+        repo: https://github.com/Prosopographia/SNAP.git
         dest: /var/www/html/snapcode
         version: master
       ignore_errors: yes
 
     - name: install the snap django python requirements
       pip: 
-        requirements: /var/www/html/snapcode/django/requirements.txt
+        name: requests
         state: latest
 
     - name: Configure 4store triplestore default database (snap)

@@ -23,14 +23,12 @@
     - name: Install the package "python-pip"
       apt:
         name: python-pip
-    - name: Install the package "4store"
-      apt:
-        name: 4store
     
+    # Checkout code and data
     - name: Checkout SNAPMinions code and data (may take a while!)
       git:
         repo: https://github.com/Prosopographia/SNAP.git
-        dest: /var/www/html/snapcode
+        dest: /var/www/html/snap
         version: master
       ignore_errors: yes
 
@@ -38,17 +36,55 @@
       pip: 
         name: requests
         state: latest
+    
 
+    # Install 4store, configure and import data
+    - name: Install the package "4store"
+      apt:
+        name: 4store
+    
     - name: Configure 4store triplestore default database (snap)
       lineinfile:
         path: /etc/default/4store
         line: 'KB="snap"'
+    
     - name: Configure 4store triplestore port (9000)
       lineinfile:
         path: /etc/default/4store
         line: 'PORT="9000"'
+    
+    - name: Stop 4store
+      command: systemctl stop 4store
+      become: yes
 
-    - name: Setup 4store triplestore and import SNAP data
-      command: 4s-backend-setup snap
-    - name: Setup 4store triplestore and import SNAP data
-      command: 4s-backend-setup snap
+    - name: Setup 'snap' triplestore
+      command: sudo 4s-backend-setup snap
+    
+    - name: Fix snap data directory permissions
+      file:
+        path: /var/lib/4store/snap
+        owner: fourstore
+        group: fourstore
+        mode: 0775
+        recurse: yes
+    
+    - name: Start 4store backend daemon for import
+      command: 4s-backend snap
+      become_user: fourstore
+      become: yes
+
+    - name: Import SNAP PIR* rdf data
+      command: 4s-import snap -v -M http://pir /var/www/html/snap/data/RDF/pir/PIR*
+      register: cmdio
+    - debug: msg="{{ cmdio.stdout }}"
+    - debug: msg="{{ cmdio.stderr }}"
+
+
+
+    - name: Start 4store (port 9000)
+      command: sudo systemctl start 4store
+
+
+
+# apt-get install build-essential libpcre3-dev libtool libraptor1-dev libglib2.0-dev ncurses-dev libreadline-dev
+# sudo -H -u fourstore 4s-backend snap

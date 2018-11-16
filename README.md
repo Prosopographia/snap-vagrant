@@ -1,14 +1,11 @@
-# Ansible Vagrant profile for a LAMP server
+# Ansible Vagrant setup for a local SNAP:DRGN development virtual machine
 
-## Background
-
-Vagrant and VirtualBox (or some other VM provider) can be used to quickly build or rebuild virtual servers.
-
-This Vagrant profile installs Apache, MySQL and PHP (the 'AMP' part of 'LAMP') using the [Ansible](http://www.ansible.com/) provisioner.
+**This does not handle live server provisioning!**
 
 ## Getting Started
 
-This README file is inside a folder that contains a `Vagrantfile` (hereafter this folder shall be called the [vagrant_root]), which tells Vagrant how to set up your virtual machine in VirtualBox.
+Vagrant and VirtualBox (or some other VM provider) can be used to quickly build or rebuild virtual servers.
+This Vagrant profile installs Apache, and the 4Store triplestore using the [Ansible](http://www.ansible.com/) provisioner.
 
 To use the vagrant file, you will need to have done the following:
 
@@ -24,16 +21,25 @@ Once the new VM is up and running (after `vagrant up` is complete and you're bac
 
 ### Setting up your hosts file
 
-You need to modify your host machine's hosts file (Mac/Linux: `/etc/hosts`; Windows: `%systemroot%\system32\drivers\etc\hosts`), adding the line below:
+The machine is based on Geerlingguy's LAMP server (with the PHP bits removed) and the VM is configured to run on http://192.168.33.33
 
-    192.168.33.33  lamp
+You can modify your host machine's hosts file to something different (Mac/Linux: `/etc/hosts`; Windows: `%systemroot%\system32\drivers\etc\hosts`), by adding the line below:
 
-(Where `lamp`) is the hostname you have configured in the `Vagrantfile`).
+    192.168.33.33  snap
 
-After that is configured, you could visit http://lamp/ in a browser, and you'll see the Apache 'It works!' page.
+(Where `snap` is the hostname configured in the `Vagrantfile`).
 
-If you'd like additional assistance editing your hosts file, please read [How do I modify my hosts file?](http://www.rackspace.com/knowledge_center/article/how-do-i-modify-my-hosts-file) from Rackspace.
+After that is configured, you could visit http://snap/ in a browser, and you'll see the SNAP Django site.
+
+### SNAP setup
+
+The VM checks out the snap code and data from github into a local shared `docroot` directory.
+
+
+
 
 ## Author Information
 
-Created in 2014 by [Jeff Geerling](http://jeffgeerling.com/), author of [Ansible for DevOps](https://www.ansiblefordevops.com/).
+Original Vagrant/Ansible playbooks created in 2014 by [Jeff Geerling](http://jeffgeerling.com/), author of [Ansible for DevOps](https://www.ansiblefordevops.com/).
+
+Modified for the 2018 SNAP November hackathon: https://github.com/Prosopographia

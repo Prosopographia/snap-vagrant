@@ -1,7 +1,5 @@
 ---
-# Ansible playbook for a LAMP server.
-#
-# @author Jeff Geerling (2014).
+# Ansible playbook for a SNAP:DRGN local development server.
 
 - hosts: snap
   gather_facts: yes
@@ -10,13 +8,8 @@
     - vars/main.yml
 
   roles:
-    - geerlingguy.firewall
-    - geerlingguy.ntp
-    - geerlingguy.mysql
     - geerlingguy.apache
-    - geerlingguy.php
-    - geerlingguy.php-mysql
-
+    
   tasks:
     - name: Install the package "git"
       apt:

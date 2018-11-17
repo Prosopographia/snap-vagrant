@@ -6,13 +6,13 @@ ntp_timezone: Europe/London
 apache_enablerepo: remi
 apache_global_vhost_settings: |
   DirectoryIndex index.html
-  WSGIScriptAlias / /var/www/html/snap/django/root/apache/wsgi.py
-  WSGIPythonPath /var/www/html/snap/django/root
+  WSGIScriptAlias / /var/www/html/snap-django/root/apache/wsgi.py
+  WSGIPythonPath /var/www/html/snap-django/root
 apache_vhosts:
   - servername: "snap"
-    documentroot: "/var/www/html/snap/django/root/apache"
+    documentroot: "/var/www/html/snap-django/root/apache"
     extra_parameters: |
-      <Directory /var/www/html/snap/django/root/apache>
+      <Directory /var/www/html/snap-django/root/apache>
         <Files wsgi.py>
           Order allow,deny
           Require all granted

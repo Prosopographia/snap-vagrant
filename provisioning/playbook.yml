@@ -25,10 +25,10 @@
         name: python-pip
     
     # Checkout code and data
-    - name: Checkout SNAPMinions code and data (may take a while!)
+    - name: Checkout SNAPMinions Django code
       git:
-        repo: https://github.com/Prosopographia/SNAP.git
-        dest: /var/www/html/snap
+        repo: https://github.com/Prosopographia/snap-django.git
+        dest: /var/www/html/snap-django
         version: master
       ignore_errors: yes
 

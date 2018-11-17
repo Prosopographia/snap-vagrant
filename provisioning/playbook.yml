@@ -36,7 +36,6 @@
       pip: 
         name: requests
         state: latest
-    
 
     # Install 4store, configure and import data
     - name: Install the package "4store"
@@ -67,24 +66,6 @@
         group: fourstore
         mode: 0775
         recurse: yes
-    
-    - name: Start 4store backend daemon for import
-      command: 4s-backend snap
-      become_user: fourstore
-      become: yes
-
-    - name: Import SNAP PIR* rdf data
-      command: 4s-import snap -v -M http://pir /var/www/html/snap/data/RDF/pir/PIR*
-      register: cmdio
-    - debug: msg="{{ cmdio.stdout }}"
-    - debug: msg="{{ cmdio.stderr }}"
-
-
 
     - name: Start 4store (port 9000)
       command: sudo systemctl start 4store
-
-
-
-# apt-get install build-essential libpcre3-dev libtool libraptor1-dev libglib2.0-dev ncurses-dev libreadline-dev
-# sudo -H -u fourstore 4s-backend snap

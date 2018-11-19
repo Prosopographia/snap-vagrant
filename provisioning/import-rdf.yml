@@ -22,12 +22,19 @@
         group: fourstore
         mode: 0775
         recurse: yes
-    
+
+    - name: Checkout SNAP data repository
+      git:
+        repo: https://github.com/Prosopographia/snap-data.git
+        dest: /var/www/html/snap-data
+        version: master
+      ignore_errors: yes
+
     - name: Start 4store backend daemon (running as the fourstore user)
       command: sudo -H -u fourstore 4s-backend snap
 
     - name: SNAP PIR* IMPORT RDF
-      shell: 4s-import snap -v -M http://pir /var/www/html/snap/RDF/pir/PIR*
+      shell: 4s-import snap -v -M http://pir /var/www/html/snap-data/RDF/pir/PIR*
       register: cmdio
     - name: SNAP PIR* stdout
       debug: msg="{{ cmdio.stdout_lines }}"
@@ -35,7 +42,7 @@
       debug: msg="{{ cmdio.stderr_lines }}"
 
     - name: SNAP TM* IMPORT RDF
-      shell: 4s-import snap -v -M http://tm /var/www/html/snap/RDF/TM/TM*
+      shell: 4s-import snap -v -M http://tm /var/www/html/snap-data/RDF/TM/TM*
       register: cmdio
     - name: SNAP TM* stdout
       debug: msg="{{ cmdio.stdout_lines }}"
@@ -43,7 +50,7 @@
       debug: msg="{{ cmdio.stderr_lines }}"
 
     - name: SNAP bm* IMPORT RDF
-      shell: 4s-import snap -v -M http://bm /var/www/html/snap/RDF/bm/bm*
+      shell: 4s-import snap -v -M http://bm /var/www/html/snap-data/RDF/bm/bm*
       register: cmdio
     - name: SNAP bm* stdout
       debug: msg="{{ cmdio.stdout_lines }}"
@@ -51,7 +58,7 @@
       debug: msg="{{ cmdio.stderr_lines }}"
 
     - name: SNAP viaf* IMPORT RDF
-      shell: 4s-import snap -v -M http://viaf /var/www/html/snap/RDF/viaf/viaf*
+      shell: 4s-import snap -v -M http://viaf /var/www/html/snap-data/RDF/viaf/viaf*
       register: cmdio
     - name: SNAP viaf* stdout
       debug: msg="{{ cmdio.stdout_lines }}"
@@ -59,7 +66,7 @@
       debug: msg="{{ cmdio.stderr_lines }}"
 
     - name: SNAP lgpn* IMPORT RDF
-      shell: 4s-import snap -v -M http://lgpn /var/www/html/snap/RDF/lgpn/lgpn*
+      shell: 4s-import snap -v -M http://lgpn /var/www/html/snap-data/RDF/lgpn/lgpn*
       register: cmdio
     - name: SNAP lgpn* stdout
       debug: msg="{{ cmdio.stdout_lines }}"

@@ -32,12 +32,11 @@
         version: master
       ignore_errors: yes
 
-    - name: install the snap django python requirements
+    - name: Install the snap django python requirements
       pip: 
         name: requests
         state: latest
 
-    # Install 4store, configure and import data
     - name: Install the package "4store"
       apt:
         name: 4store
